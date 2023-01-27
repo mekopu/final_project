@@ -1,0 +1,29 @@
+version: '2'
+services:
+  postgres-db:
+    image: postgres:15
+    environment:
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: dwh
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    ports:
+    - 5435:5432/tcp
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=mysql
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_ROOT_PASSWORD=mysql
+    ports:
+      - 3307:3306/tcp
+    volumes:
+      - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data: # docker volume create mysql_data
+    external: true
+  postgres_data: # docker volume create postgres_data
+    external: true
